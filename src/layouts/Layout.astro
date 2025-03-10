@@ -18,6 +18,10 @@ const { pageTitle } = Astro.props;
     <title>{pageTitle}</title>
   </head>
   <body>
+	<nav>
+		<a href="/">Accueil</a>
+		<a href="/personnes/">Liste des personnes</a>
+	</nav>
     <slot />
   </body>
 </html>
