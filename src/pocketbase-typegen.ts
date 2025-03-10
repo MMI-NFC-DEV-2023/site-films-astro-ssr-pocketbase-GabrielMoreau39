@@ -11,7 +11,9 @@ export enum Collections {
 	Mfas = "_mfas",
 	Otps = "_otps",
 	Superusers = "_superusers",
-	Personnes = "personnes",
+	Films = "films",
+	Personne = "personne",
+	Roles = "roles",
 	Users = "users",
 }
 
@@ -86,27 +88,49 @@ export type SuperusersRecord = {
 	verified?: boolean
 }
 
-export enum PersonnesNationaliteOptions {
+export type FilmsRecord = {
+	created?: IsoDateString
+	date_sortie?: IsoDateString
+	duree?: string
+	id: string
+	langue?: string
+	producteur?: RecordIdString
+	roles?: RecordIdString
+	scenaristes?: RecordIdString[]
+	synopsis?: string
+	titre?: string
+	updated?: IsoDateString
+}
+
+export enum PersonneNationaliteOptions {
 	"US" = "US",
 	"UK" = "UK",
 }
 
-export enum PersonnesProfessionOptions {
+export enum PersonneProfessionOptions {
 	"scenariste" = "scenariste",
 	"producteur" = "producteur",
 	"acteur" = "acteur",
 	"realisateur" = "realisateur",
 }
-export type PersonnesRecord = {
+export type PersonneRecord = {
 	created?: IsoDateString
 	date_deces?: IsoDateString
 	date_naissance?: IsoDateString
 	id: string
 	lieu_naissance?: string
-	nationalite?: PersonnesNationaliteOptions[]
+	nationalite?: PersonneNationaliteOptions[]
 	nom?: string
 	prenom?: string
-	profession?: PersonnesProfessionOptions
+	profession?: PersonneProfessionOptions
+	updated?: IsoDateString
+}
+
+export type RolesRecord = {
+	acteur?: RecordIdString
+	created?: IsoDateString
+	id: string
+	nom_role?: string
 	updated?: IsoDateString
 }
 
@@ -129,7 +153,9 @@ export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRec
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
-export type PersonnesResponse<Texpand = unknown> = Required<PersonnesRecord> & BaseSystemFields<Texpand>
+export type FilmsResponse<Texpand = unknown> = Required<FilmsRecord> & BaseSystemFields<Texpand>
+export type PersonneResponse<Texpand = unknown> = Required<PersonneRecord> & BaseSystemFields<Texpand>
+export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -140,7 +166,9 @@ export type CollectionRecords = {
 	_mfas: MfasRecord
 	_otps: OtpsRecord
 	_superusers: SuperusersRecord
-	personnes: PersonnesRecord
+	films: FilmsRecord
+	personne: PersonneRecord
+	roles: RolesRecord
 	users: UsersRecord
 }
 
@@ -150,7 +178,9 @@ export type CollectionResponses = {
 	_mfas: MfasResponse
 	_otps: OtpsResponse
 	_superusers: SuperusersResponse
-	personnes: PersonnesResponse
+	films: FilmsResponse
+	personne: PersonneResponse
+	roles: RolesResponse
 	users: UsersResponse
 }
 
@@ -163,6 +193,8 @@ export type TypedPocketBase = PocketBase & {
 	collection(idOrName: '_mfas'): RecordService<MfasResponse>
 	collection(idOrName: '_otps'): RecordService<OtpsResponse>
 	collection(idOrName: '_superusers'): RecordService<SuperusersResponse>
-	collection(idOrName: 'personnes'): RecordService<PersonnesResponse>
+	collection(idOrName: 'films'): RecordService<FilmsResponse>
+	collection(idOrName: 'personne'): RecordService<PersonneResponse>
+	collection(idOrName: 'roles'): RecordService<RolesResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }
